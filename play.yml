@@ -1,0 +1,18 @@
+--- 
+- 
+  hosts: localhost
+  name: "initialize fw"
+  tasks: 
+    - 
+      name: "install fw"
+      yum: 
+        name: firewalld
+        state: present
+    - 
+      name: "start fw"
+      service: 
+        name: firewalld
+        state: started
+    - 
+      command: "systemctl enable firewalld"
+      name: "systemctl en firewall"
