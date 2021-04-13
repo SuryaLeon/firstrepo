@@ -16,3 +16,22 @@
     - 
       command: "systemctl enable firewalld"
       name: "systemctl en firewall"
+- 
+  hosts: localhost
+  name: "mariadb initialization"
+  tasks: 
+    - 
+      name: "install mdb"
+      yum: 
+        name: mariadb-server
+        state: present
+    - 
+      name: "svc mdb start"
+      service: 
+        name: mariadb
+        state: started
+    - 
+      command: "systemctl enable mariadb"
+      name: "systemctl mdb en"
+
+      
