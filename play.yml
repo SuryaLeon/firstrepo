@@ -33,5 +33,42 @@
     - 
       command: "systemctl enable mariadb"
       name: "systemctl mdb en"
-
-      
+- 
+  hosts: localhost
+  name: "add db ports to fw"
+  tasks: 
+    - 
+      firewalld: 
+        permanent: true
+        port: 3306/tcp
+        state: enabled
+        zone: public
+      name: "add 3306/tcp"
+    - 
+      name: "reload fw"
+      systemd: 
+        name: firewalld
+        state: reloaded
+- 
+  hosts: localhost
+  name: "conf mbd"
+  tasks: 
+    - 
+      name: "install mysql-py module"
+      yum: 
+        name: python-mysqldb
+        state: installed
+    - 
+      mysql_db: 
+        name: ecomdb
+        state: present
+      name: "create db"
+    - 
+      mysql_user: 
+        check_implicit_admin: true
+        host: localhost
+        name: ecomuser
+        password: ecompassword
+        priv: "*.*:ALL"
+        state: present
+      name: "create user"
