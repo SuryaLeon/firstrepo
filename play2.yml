@@ -22,3 +22,23 @@
     - 
       command: "firewall-cmd --reload"
       name: "reload fw"
+    - 
+      command: "sed -i 's/index.html/index.php/g' /etc/httpd/conf/httpd.conf"
+      name: "index change"
+    - 
+      name: "start httpd"
+      service: 
+        name: httpd
+        state: started
+    - 
+      command: "systemctl enable httpd"
+      name: "sysctl en httpd"
+    - 
+      name: git
+      yum: 
+        name: git
+        state: present
+    - 
+      command: "git clone https://github.com/kodekloudhub/learning-app-ecommerce.git /var/www/html/"
+      name: "get git code"
+
