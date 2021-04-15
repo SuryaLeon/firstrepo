@@ -1,0 +1,24 @@
+--- 
+- 
+  hosts: localhost
+  name: "web server"
+  tasks: 
+    - 
+      name: "install httpd php mysql"
+      with_items: 
+        - httpd
+        - php
+        - php-mysql
+      yum: 
+        name: "{{ item }}"
+        state: present
+    - 
+      firewalld: 
+        permanent: true
+        port: 80/tcp
+        state: enabled
+        zone: public
+      name: "add fw ports"
+    - 
+      command: "firewall-cmd --reload"
+      name: "reload fw"
