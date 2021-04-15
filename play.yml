@@ -56,7 +56,7 @@
     - 
       name: "install mysql-py module"
       yum: 
-        name: python-mysqldb
+        name: MySQL-python
         state: installed
     - 
       mysql_db: 
